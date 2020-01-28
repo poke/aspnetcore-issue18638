@@ -1,0 +1,23 @@
+﻿<h3>Details for @Item</h3>
+<p>@Details</p>
+
+@code {
+    [CascadingParameter] public int Cascading { get; set; }
+    [Parameter] public string Item { get; set; }
+    public string Details { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Details = null;
+        Console.WriteLine("OnParametersSetAsync: {0}, {1}, {2}", Item, Details, Cascading);
+        Details = await Fetch(Item);
+        Console.WriteLine("OnParametersSetAsync done: {0}, {1}, {2}", Item, Details, Cascading);
+    }
+
+    private static async Task<string> Fetch(string param)
+    {
+        Console.WriteLine("Fetch {0}", param);
+        await Task.Delay(3000);
+        return "Details for " + param;
+    }
+}

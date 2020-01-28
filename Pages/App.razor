@@ -1,0 +1,25 @@
+﻿<CascadingValue Value="@cascadingValue">
+
+    <h2>Select an item</h2>
+
+    @foreach (var item in items)
+    {
+        <button @onclick="() => Select(item)">@item</button>
+    }
+
+    <hr />
+    <DetailsComponent Item="@selectedItem" />
+
+</CascadingValue>
+
+@code {
+    private string[] items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4" };
+    private string selectedItem;
+    private int cascadingValue;
+
+    void Select(string item)
+    {
+        cascadingValue = DateTime.Now.Millisecond;
+        selectedItem = item;
+    }
+}
